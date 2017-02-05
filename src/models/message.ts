@@ -2,5 +2,5 @@ export class Message {
   public $key: string;
   public userName: string;
   public messageContent: string;
-  public messageDate: Date;
+  public messageDate: string;
 }

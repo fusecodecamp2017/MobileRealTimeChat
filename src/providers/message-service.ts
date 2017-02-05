@@ -12,7 +12,7 @@ export class MessageService {
   }
 
   public addMessage(message: Message) {
-    message.messageDate = new Date();
+    message.messageDate = new Date().toString();
     this.messages.push(message);
   }
 }
