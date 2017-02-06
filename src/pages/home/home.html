@@ -14,7 +14,7 @@
       </ion-avatar>
       <p>{{message.userName}}</p>
       <h2>{{message.messageContent}}</h2>
-      <ion-note item-right>{{message.messageDate}}</ion-note>
+      <ion-note item-right>{{formatDateTo_hhmm(message.messageDate)}}</ion-note>
     </ion-item>
   </ion-list>
   <ion-footer>
