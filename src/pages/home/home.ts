@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Message } from '../../models/message'
-import { MessageService } from '../../providers/message-service'
+import { Message } from '../../models/message';
+import { MessageService } from '../../providers/message-service';
+import { UserService } from '../../providers/user-service'
+import { LoginPage } from '../login/login';
 import * as moment from 'moment';
 
 @Component({
@@ -10,14 +12,25 @@ import * as moment from 'moment';
   providers: [MessageService]
 })
 export class HomePage {
-  public USER_NAME_CONSTANT = 'John Ryan';
   public currentMessage: string;
 
-  constructor(public navCtrl: NavController, private messageService: MessageService) {
+  constructor(public navCtrl: NavController, private messageService: MessageService, public userService: UserService) {
   }
 
   public formatDateTo_hhmm(dateProvidedAsString: string) {
     return moment(new Date(dateProvidedAsString)).format('h:mm a');
+  }
+
+  public login() {
+    this.navCtrl.push(LoginPage, {});
+  }
+
+  public logout() {
+    this.userService.clearCurrentUser();
+  }
+
+  public isThisMessageFromMe(message: Message) {
+    return (!this.userService.currentUser || message.userName !== this.userService.currentUser.name);
   }
 
   public send() {
@@ -27,7 +40,7 @@ export class HomePage {
 
   private buildAndSendMessage(message: string) {
     var newMessage = new Message();
-    newMessage.userName = this.USER_NAME_CONSTANT;
+    newMessage.userName = this.userService.currentUser.name;
     newMessage.messageContent = this.currentMessage;
     this.messageService.addMessage(newMessage);
   }

@@ -1,0 +1,16 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label floating>Enter the user name you wish your messages to display</ion-label>
+    <ion-input [(ngModel)]="userBeingEdited.name" type="text"></ion-input>
+  </ion-item>
+
+  <button (click)="save()" ion-button block>SAVE</button>
+</ion-content>
