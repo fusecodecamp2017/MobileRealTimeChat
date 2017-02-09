@@ -15,6 +15,9 @@ export class HomePage {
   public currentMessage: string;
 
   constructor(public navCtrl: NavController, private messageService: MessageService, public userService: UserService) {
+    if (!this.userService.currentUser) {
+      this.navCtrl.push(LoginPage, {});
+    }
   }
 
   public formatDateTo_hhmm(dateProvidedAsString: string) {

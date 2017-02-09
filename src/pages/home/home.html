@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <ion-list [hidden]="!userService.currentUser">
     <ion-item [ngClass]="{'current-user-message': isThisMessageFromMe(message)}" *ngFor="let message of messageService.messages | async">
       <ion-avatar item-left>
         <ion-icon class="anonymousUserImageIcon" name="person"></ion-icon>
