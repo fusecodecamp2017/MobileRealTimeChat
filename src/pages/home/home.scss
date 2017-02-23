@@ -2,19 +2,17 @@ page-home {
   .anonymousUserImageIcon {
     font-size: 3.5rem;
   }
-  ion-item {
-    div.item-inner {
-      border-bottom: 0px solid #dedede !important;
-    }
-  }
   .current-user-message {
-    background-color: #86b0f9;
-    ion-avatar > ion-icon {
-      color: white;
+    div.item-inner {
+      padding-left: 1rem;
+      border-radius: 1rem;
+      background-color: #86b0f9;
     }
+
     h2 {
       color: white;
     }
+
     ion-note {
       color: white;
     }

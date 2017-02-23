@@ -21,7 +21,7 @@ export class HomePage {
   }
 
   public formatDateTo_hhmm(dateProvidedAsString: string) {
-    return moment(new Date(dateProvidedAsString)).format('h:mm a');
+    return moment(new Date(dateProvidedAsString)).format('MMM D - h:mm a');
   }
 
   public login() {

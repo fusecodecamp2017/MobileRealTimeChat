@@ -8,7 +8,6 @@ export class UserService {
   public currentUser: User;
 
   constructor(private storage: Storage) {
-    console.log('Hello UserService Provider');
     this.setupCurrentUser();
   }
 
