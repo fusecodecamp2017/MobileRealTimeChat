@@ -5,7 +5,7 @@
     </ion-title>
     <ion-buttons end>
       <button [hidden]="userService.currentUser" (click)="login()" ion-button outline>LOGIN</button>
-        <button [hidden]="!userService.currentUser" (click)="logout()" ion-button outline>LOGOUT</button>
+      <button [hidden]="!userService.currentUser" (click)="logout()" ion-button outline>LOGOUT</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -22,9 +22,18 @@
     </ion-item>
   </ion-list>
   <ion-footer>
-    <ion-item>
-      <ion-input [(ngModel)]="currentMessage" type="text" placeholder="Message"></ion-input>
-      <button (click)="send()" item-right ion-button>SEND</button>
-    </ion-item>
+    <ion-toolbar>
+      <ion-item>
+        <button (click)="showAdditionalIcons = !showAdditionalIcons" item-left ion-button>
+        <ion-icon [hidden]="showAdditionalIcons" name="arrow-forward"></ion-icon>
+        <ion-icon [hidden]="!showAdditionalIcons" name="arrow-back"></ion-icon>
+      </button>
+        <button [hidden]="!showAdditionalIcons" (click)="sendPhoto()" item-left ion-button>
+        <ion-icon name="camera"></ion-icon>
+      </button>
+        <ion-input [(ngModel)]="currentMessage" type="text" placeholder="Message"></ion-input>
+        <button (click)="send()" item-right ion-button>SEND</button>
+      </ion-item>
+    </ion-toolbar>
   </ion-footer>
 </ion-content>

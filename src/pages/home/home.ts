@@ -5,6 +5,7 @@ import { MessageService } from '../../providers/message-service';
 import { UserService } from '../../providers/user-service'
 import { LoginPage } from '../login/login';
 import * as moment from 'moment';
+import { Camera } from 'ionic-native';
 
 @Component({
   selector: 'page-home',
@@ -13,11 +14,13 @@ import * as moment from 'moment';
 })
 export class HomePage {
   public currentMessage: string;
+  public showAdditionalIcons: boolean;
 
   constructor(public navCtrl: NavController, private messageService: MessageService, public userService: UserService) {
     if (!this.userService.currentUser) {
       this.navCtrl.push(LoginPage, {});
     }
+    this.showAdditionalIcons = false;
   }
 
   public formatDateTo_hhmm(dateProvidedAsString: string) {
@@ -34,6 +37,18 @@ export class HomePage {
 
   public isThisMessageFromMe(message: Message) {
     return (!this.userService.currentUser || message.userName !== this.userService.currentUser.name);
+  }
+
+  public sendPhoto() {
+    Camera.getPicture({
+      destinationType: Camera.DestinationType.DATA_URL,
+      targetWidth: 400,
+      targetHeight: 300
+    }).then((imageData) => {
+      let base64Image = 'data:image/jpeg;base64,' + imageData.replace(/[\n\r]/g, '');
+      this.buildAndSendMessage(base64Image);
+      this.currentMessage = "";
+    });
   }
 
   public send() {
