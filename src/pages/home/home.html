@@ -12,15 +12,22 @@
 
 <ion-content padding>
   <ion-list [hidden]="!userService.currentUser">
-    <ion-item [ngClass]="{'current-user-message': isThisMessageFromMe(message)}" *ngFor="let message of messageService.messages | async">
-      <ion-avatar item-left>
-        <ion-icon class="anonymousUserImageIcon" name="person"></ion-icon>
-      </ion-avatar>
-      <p>{{message.userName}}</p>
-      <h2>{{message.messageContent}}</h2>
-      <ion-note item-right>{{formatDateTo_hhmm(message.messageDate)}}</ion-note>
-    </ion-item>
+    <ion-item-sliding *ngFor="let message of messageService.messages | async">
+      <ion-item [ngClass]="{'current-user-message': isThisMessageFromMe(message)}">
+        <ion-avatar item-left>
+          <ion-icon class="anonymousUserImageIcon" name="person"></ion-icon>
+        </ion-avatar>
+        <p>{{message.userName}}</p>
+        <h2 [hidden]="doesThisMessageContainAnImage(message)">{{message.messageContent}}</h2>
+        <img [hidden]="!doesThisMessageContainAnImage(message)" [src]="message.messageContent" />
+
+      </ion-item>
+      <ion-item-options side="right">
+        <ion-note item-right>{{formatDateTo_hhmm(message.messageDate)}}</ion-note>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
+  </ion-content>
   <ion-footer>
     <ion-toolbar>
       <ion-item>
@@ -31,9 +38,9 @@
         <button [hidden]="!showAdditionalIcons" (click)="sendPhoto()" item-left ion-button>
         <ion-icon name="camera"></ion-icon>
       </button>
-        <ion-input [(ngModel)]="currentMessage" type="text" placeholder="Message"></ion-input>
+        <!-- Not using ion-input due to undesirable keyboard behavior -->
+        <input id="current-message-input" [(ngModel)]="currentMessage" type="text" placeholder="Message" />
         <button (click)="send()" item-right ion-button>SEND</button>
       </ion-item>
     </ion-toolbar>
   </ion-footer>
-</ion-content>
