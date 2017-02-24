@@ -8,6 +8,12 @@ import { LoginPage } from '../login/login';
 import * as moment from 'moment';
 import { Camera } from 'ionic-native';
 
+export const cameraOptions = {
+  destinationType: Camera.DestinationType.DATA_URL,
+  targetWidth: 400,
+  targetHeight: 300
+};
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -41,11 +47,7 @@ export class HomePage {
   }
 
   public sendPhoto() {
-    Camera.getPicture({
-      destinationType: Camera.DestinationType.DATA_URL,
-      targetWidth: 400,
-      targetHeight: 300
-    }).then((imageData) => {
+    Camera.getPicture(cameraOptions).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData.replace(/[\n\r]/g, '');
       this.buildAndSendMessage(base64Image);
       this.currentMessage = "";
