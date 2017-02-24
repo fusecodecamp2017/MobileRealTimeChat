@@ -2,6 +2,7 @@ page-home {
   .anonymousUserImageIcon {
     font-size: 3.5rem;
   }
+
   .current-user-message {
     div.item-inner {
       padding-left: 1rem;
@@ -11,10 +12,16 @@ page-home {
 
     h2 {
       color: white;
+      white-space: normal;
     }
 
     ion-note {
       color: white;
     }
+  }
+  #current-message-input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
   }
 }
