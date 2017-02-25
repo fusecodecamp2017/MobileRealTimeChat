@@ -1,6 +1,6 @@
 {
-  "name": "IonicMessaging",
-  "app_id": "",
+  "name": "MobileRealTimeChat",
+  "app_id": "a52a41ec",
   "v2": true,
   "typescript": true
 }

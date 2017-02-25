@@ -20,7 +20,6 @@
         <p>{{message.userName}}</p>
         <h2 [hidden]="doesThisMessageContainAnImage(message)">{{message.messageContent}}</h2>
         <img [hidden]="!doesThisMessageContainAnImage(message)" [src]="message.messageContent" />
-
       </ion-item>
       <ion-item-options side="right">
         <ion-note item-right>{{formatDateTo_hhmm(message.messageDate)}}</ion-note>
