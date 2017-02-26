@@ -42,6 +42,12 @@ export class HomePage {
     this.userService.clearCurrentUser();
   }
 
+  public getImageFromMessageContent(message: Message) {
+    // Added this function so that I don't get errors in the console when the img tag
+    // tries to render an image from not-image data.
+    return this.doesThisMessageContainAnImage(message) ? message.messageContent : "";
+  }
+
   public isThisMessageFromMe(message: Message) {
     return (!this.userService.currentUser || message.userName !== this.userService.currentUser.name);
   }
