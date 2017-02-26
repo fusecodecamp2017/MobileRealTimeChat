@@ -6,7 +6,7 @@ import { NotificationService } from '../../providers/notification-service'
 import { UserService } from '../../providers/user-service'
 import { LoginPage } from '../login/login';
 import * as moment from 'moment';
-import { Camera } from 'ionic-native';
+import { Camera, Geolocation } from 'ionic-native';
 
 export const cameraOptions = {
   destinationType: Camera.DestinationType.DATA_URL,
@@ -59,6 +59,15 @@ export class HomePage {
       this.currentMessage = "";
     }, (error) => {
       this.notificationService.showMessage('photo capture error: ' + JSON.stringify(error));
+    });
+  }
+
+  public sendLocation() {
+    Geolocation.getCurrentPosition().then((resp) => {
+     // resp.coords.latitude
+     // resp.coords.longitude
+    }).catch((error) => {
+      this.notificationService.showMessage('error getting location: ' + JSON.stringify(error));
     });
   }
 

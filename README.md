@@ -7,3 +7,4 @@ List of projected features for this application:
 5. Direct the user to the login page if they are not logged in.  Hide messages on the home page when the user is not logged in.
 6. Add the ability to send a photo.
 7. Add the ability to embed links for websites and email addresses.
+8. Add the ability to share your location.
