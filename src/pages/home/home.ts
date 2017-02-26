@@ -56,7 +56,6 @@ export class HomePage {
     Camera.getPicture(cameraOptions).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData.replace(/[\n\r]/g, '');
       this.buildAndSendMessage(base64Image);
-      this.currentMessage = "";
     }, (error) => {
       this.notificationService.showMessage('photo capture error: ' + JSON.stringify(error));
     });
@@ -64,8 +63,12 @@ export class HomePage {
 
   public sendLocation() {
     Geolocation.getCurrentPosition().then((resp) => {
-     // resp.coords.latitude
-     // resp.coords.longitude
+      let coordinates = {
+        accuracy: resp.coords.accuracy,
+        latitude: resp.coords.latitude,
+        longitude: resp.coords.longitude
+      };
+      this.buildAndSendMessage('data:location,' + JSON.stringify(coordinates));
     }).catch((error) => {
       this.notificationService.showMessage('error getting location: ' + JSON.stringify(error));
     });
