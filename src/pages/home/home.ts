@@ -30,10 +30,6 @@ export class HomePage {
     this.showAdditionalIcons = false;
   }
 
-  public formatDateTo_hhmm(dateProvidedAsString: string) {
-    return moment(new Date(dateProvidedAsString)).format('MMM D - h:mm a');
-  }
-
   public login() {
     this.navCtrl.push(LoginPage, {});
   }
@@ -42,14 +38,22 @@ export class HomePage {
     this.userService.clearCurrentUser();
   }
 
-  public getImageFromMessageContent(message: Message) {
-    // Added this function so that I don't get errors in the console when the img tag
-    // tries to render an image from not-image data.
-    return this.doesThisMessageContainAnImage(message) ? message.messageContent : "";
+  public formatDateTo_hhmm(dateProvidedAsString: string) {
+    return moment(new Date(dateProvidedAsString)).format('MMM D - h:mm a');
   }
 
   public isThisMessageFromMe(message: Message) {
     return (!this.userService.currentUser || message.userName !== this.userService.currentUser.name);
+  }
+
+  public doesThisMessageContainAnImage(message: Message) {
+    return message.messageContent.indexOf('data:image') !== -1;
+  }
+
+  public getImageFromMessageContent(message: Message) {
+    // Added this function so that I don't get errors in the console when the img tag
+    // tries to render an image from not-image data.
+    return this.doesThisMessageContainAnImage(message) ? message.messageContent : "";
   }
 
   public sendPhoto() {
@@ -72,10 +76,6 @@ export class HomePage {
     }).catch((error) => {
       this.notificationService.showMessage('error getting location: ' + JSON.stringify(error));
     });
-  }
-
-  public doesThisMessageContainAnImage(message: Message) {
-    return message.messageContent.indexOf('data:image') !== -1;
   }
 
   public send() {
