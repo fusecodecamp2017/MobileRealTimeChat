@@ -3,6 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { MapViewPage } from '../pages/map-view/map-view'
 import { AngularFireModule } from 'angularfire2';
 import { Storage } from '@ionic/storage';
 import { UserService } from '../providers/user-service'
@@ -20,7 +21,8 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    MapViewPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -31,7 +33,8 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    MapViewPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage, UserService]
 })

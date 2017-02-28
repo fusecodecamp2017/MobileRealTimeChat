@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Message } from '../../models/message';
+import { LocationData } from '../../models/location-data'
 import { MessageService } from '../../providers/message-service';
 import { NotificationService } from '../../providers/notification-service'
 import { UserService } from '../../providers/user-service'
 import { LoginPage } from '../login/login';
+import { MapViewPage } from '../map-view/map-view'
 import * as moment from 'moment';
 import { Camera, Geolocation } from 'ionic-native';
 
@@ -13,6 +15,9 @@ export const cameraOptions = {
   targetWidth: 400,
   targetHeight: 300
 };
+
+export const imageContentPrefix = 'data:image/jpeg;base64,';
+export const locationDataContentPrefix = 'data:location,';
 
 @Component({
   selector: 'page-home',
@@ -46,8 +51,12 @@ export class HomePage {
     return (!this.userService.currentUser || message.userName !== this.userService.currentUser.name);
   }
 
+  public isThisMessageSimpleText(message: Message) {
+    return !this.doesThisMessageContainAnImage(message) && !this.doesThisMessageContainLocationData(message);
+  }
+
   public doesThisMessageContainAnImage(message: Message) {
-    return message.messageContent.indexOf('data:image') !== -1;
+    return message.messageContent.indexOf(imageContentPrefix) !== -1;
   }
 
   public getImageFromMessageContent(message: Message) {
@@ -56,9 +65,18 @@ export class HomePage {
     return this.doesThisMessageContainAnImage(message) ? message.messageContent : "";
   }
 
+  public doesThisMessageContainLocationData(message: Message) {
+    return message.messageContent.indexOf(locationDataContentPrefix) !== -1;
+  }
+
+  public viewLocationData(message: Message) {
+    let locationData = JSON.parse(message.messageContent.substring(locationDataContentPrefix.length));
+    this.navCtrl.push(MapViewPage, { locationData: locationData, userName: message.userName });
+  }
+
   public sendPhoto() {
     Camera.getPicture(cameraOptions).then((imageData) => {
-      let base64Image = 'data:image/jpeg;base64,' + imageData.replace(/[\n\r]/g, '');
+      let base64Image = imageContentPrefix + imageData.replace(/[\n\r]/g, '');
       this.buildAndSendMessage(base64Image);
     }, (error) => {
       this.notificationService.showMessage('photo capture error: ' + JSON.stringify(error));
@@ -67,12 +85,11 @@ export class HomePage {
 
   public sendLocation() {
     Geolocation.getCurrentPosition().then((resp) => {
-      let coordinates = {
-        accuracy: resp.coords.accuracy,
-        latitude: resp.coords.latitude,
-        longitude: resp.coords.longitude
-      };
-      this.buildAndSendMessage('data:location,' + JSON.stringify(coordinates));
+      let locationData = new LocationData();
+      locationData.accuracy = resp.coords.accuracy;
+      locationData.latitude = resp.coords.latitude;
+      locationData.longitude = resp.coords.longitude;
+      this.buildAndSendMessage('data:location,' + JSON.stringify(locationData));
     }).catch((error) => {
       this.notificationService.showMessage('error getting location: ' + JSON.stringify(error));
     });

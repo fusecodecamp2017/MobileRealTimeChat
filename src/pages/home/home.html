@@ -18,8 +18,9 @@
           <ion-icon class="anonymousUserImageIcon" name="person"></ion-icon>
         </ion-avatar>
         <p>{{message.userName}}</p>
-        <h2 [hidden]="doesThisMessageContainAnImage(message)" [innerHTML]="message.messageContent | linky:{newWindow: false}"></h2>
+        <h2 [hidden]="!isThisMessageSimpleText(message)" [innerHTML]="message.messageContent | linky:{newWindow: false}"></h2>
         <img [hidden]="!doesThisMessageContainAnImage(message)" [src]="getImageFromMessageContent(message) "/>
+        <h2 [hidden]="!doesThisMessageContainLocationData(message)" (click)="viewLocationData(message)"><ion-icon name="locate"></ion-icon> </h2>
       </ion-item>
       <ion-item-options side="right">
         <ion-note item-right>{{formatDateTo_hhmm(message.messageDate)}}</ion-note>
