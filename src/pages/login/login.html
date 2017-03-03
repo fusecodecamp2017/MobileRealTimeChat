@@ -11,6 +11,10 @@
     <ion-label floating>Enter the user name you wish your messages to display</ion-label>
     <ion-input [(ngModel)]="userBeingEdited.name" type="text"></ion-input>
   </ion-item>
+  <ion-item>
+    <button (click)="capturePhoto()" ion-button>TAKE PHOTO</button>
+    <img [hidden]="!userBeingEdited.photo" [src]="userBeingEdited.photo"/>
+  </ion-item>
 
   <button (click)="save()" ion-button block>SAVE</button>
 </ion-content>
