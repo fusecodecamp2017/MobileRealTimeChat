@@ -41,7 +41,10 @@
     "cordova-plugin-console",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "cordova-plugin-geolocation",
+    "cordova-plugin-googlemaps",
+    "cordova-plugin-camera"
   ],
   "cordovaPlatforms": [
     "ios",
