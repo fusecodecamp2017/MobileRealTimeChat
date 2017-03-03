@@ -8,14 +8,18 @@ export class UserService {
   public currentUser: User;
 
   constructor(private storage: Storage) {
-    this.setupCurrentUser();
   }
 
-  private setupCurrentUser() {
-    this.storage.get('currentUser').then((returnedUser) => {
-      this.currentUser = returnedUser;
-    }, () => {
-      this.currentUser = null;
+  public setupCurrentUser(){
+    return new Promise((resolve, reject) => {
+      this.storage.get('currentUser').then((returnedUser) => {
+        this.currentUser = returnedUser;
+        console.log('UserService currentUser set');
+        resolve(this.currentUser);
+      }, () => {
+        this.currentUser = null;
+        reject(null);
+      });
     });
   }
 

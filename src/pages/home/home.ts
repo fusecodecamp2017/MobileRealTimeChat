@@ -29,10 +29,18 @@ export class HomePage {
   public showAdditionalIcons: boolean;
 
   constructor(public navCtrl: NavController, private messageService: MessageService, public userService: UserService, private notificationService: NotificationService) {
-    if (!this.userService.currentUser) {
-      this.navCtrl.push(LoginPage, {});
-    }
+    this.setupUser();
     this.showAdditionalIcons = false;
+  }
+
+  private setupUser() {
+    let testRon = 'Hi Ron!';
+    console.log(`HomePage constructor executing ${testRon}`);
+    this.userService.setupCurrentUser().then(()=>{
+      if (!this.userService.currentUser) {
+        this.navCtrl.push(LoginPage, {});
+      }
+    });
   }
 
   public login() {
