@@ -38,7 +38,7 @@ export class HomePage {
     console.log(`HomePage constructor executing ${testRon}`);
     this.userService.setupCurrentUser().then(()=>{
       if (!this.userService.currentUser) {
-        this.navCtrl.push(LoginPage, {});
+        this.navCtrl.push(LoginPage);
       }
     });
   }
@@ -49,6 +49,7 @@ export class HomePage {
 
   public logout() {
     this.userService.clearCurrentUser();
+    this.navCtrl.push(LoginPage);
   }
 
   public formatDateTo_hhmm(dateProvidedAsString: string) {

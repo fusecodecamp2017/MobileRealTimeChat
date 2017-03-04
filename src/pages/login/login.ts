@@ -1,16 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { UserService } from '../../providers/user-service'
+import { CreateNewAccountPage } from '../create-new-account/create-new-account'
 import { NotificationService } from '../../providers/notification-service'
 import { User } from '../../models/user'
-import { Camera } from 'ionic-native';
-
-export const cameraOptionsForUserPicture = {
-  destinationType: Camera.DestinationType.DATA_URL,
-  targetWidth: 400,
-  targetHeight: 300
-};
-export const imageContentPrefix = 'data:image/jpeg;base64,';
 
 @Component({
   selector: 'page-login',
@@ -18,29 +11,35 @@ export const imageContentPrefix = 'data:image/jpeg;base64,';
   providers: [NotificationService]
 })
 export class LoginPage {
-  public userBeingEdited: User;
+  public loginUser: User;
   constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService, public notificationService: NotificationService) {
-    this.setupUserBeingEdited()
+    this.loginUser = new User();
   }
 
-  private setupUserBeingEdited() {
-    if (this.userService.currentUser) {
-      this.userBeingEdited = this.userService.currentUser;
-    } else {
-      this.userBeingEdited = new User();
-    }
-  }
-
-  public capturePhoto() {
-    Camera.getPicture(cameraOptionsForUserPicture).then((imageData) => {
-      this.userBeingEdited.photo = imageContentPrefix + imageData.replace(/[\n\r]/g, '');
-    }, (error) => {
-      this.notificationService.showMessage('photo capture error: ' + JSON.stringify(error));
+  public login() {
+    this.userService.getUserFromFireBaseByUserName(this.loginUser.name).then((userDataReturned) => {
+      if (userDataReturned && userDataReturned[0]) {
+        this.handleSetCurrentUser(userDataReturned[0]);
+        this.navCtrl.pop();
+      } else {
+        this.handleLoginFailed();
+      }
+    }, () => {
+      this.handleLoginFailed();
     });
   }
 
-  public save() {
-    this.userService.registerCurrentUser(this.userBeingEdited);
-    this.navCtrl.pop();
+  private handleSetCurrentUser(passedUser) {
+    let currentUser = new User();
+    currentUser.$key = passedUser.$key;
+    currentUser.name = passedUser.name;
+    currentUser.photo = passedUser.photo;
+    this.userService.setCurrentUser(currentUser);
   }
+
+  public createNewAccount() {
+    this.navCtrl.push(CreateNewAccountPage);
+  }
+
+  private handleLoginFailed() {}
 }
