@@ -57,7 +57,7 @@ export class HomePage {
   }
 
   public isThisMessageFromMe(message: Message) {
-    return (!this.userService.currentUser || message.userName !== this.userService.currentUser.name);
+    return (!this.userService.currentUser || message.userKey !== this.userService.currentUser.$key);
   }
 
   public isThisMessageSimpleText(message: Message) {
@@ -112,6 +112,7 @@ export class HomePage {
   private buildAndSendMessage(message: string) {
     var newMessage = new Message();
     newMessage.userName = this.userService.currentUser.name;
+    newMessage.userKey = this.userService.currentUser.$key;
     newMessage.messageContent = message;
     this.messageService.addMessage(newMessage);
   }
