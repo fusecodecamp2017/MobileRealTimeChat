@@ -41,5 +41,7 @@ export class LoginPage {
     this.navCtrl.push(CreateNewAccountPage);
   }
 
-  private handleLoginFailed() {}
+  private handleLoginFailed() {
+    this.notificationService.showMessage('Login failed');
+  }
 }
