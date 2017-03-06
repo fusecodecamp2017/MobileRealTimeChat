@@ -34,10 +34,13 @@ export class HomePage {
   }
 
   private setupUser() {
-    this.userService.setupCurrentUser().then(()=>{
-      if (!this.userService.currentUser) {
+    this.userService.setupCurrentUser().then((user)=>{
+      if (!user) {
         this.navCtrl.push(LoginPage);
       }
+    }, (error) => {
+      this.notificationService.showMessage('setup current user error: ' + JSON.stringify(error));
+      this.navCtrl.push(LoginPage);
     });
   }
 
@@ -85,8 +88,10 @@ export class HomePage {
     Camera.getPicture(cameraOptions).then((imageData) => {
       let base64Image = imageContentPrefix + imageData.replace(/[\n\r]/g, '');
       this.buildAndSendMessage(base64Image);
+      this.showAdditionalIcons = false;
     }, (error) => {
       this.notificationService.showMessage('photo capture error: ' + JSON.stringify(error));
+      this.showAdditionalIcons = false;
     });
   }
 
@@ -97,8 +102,10 @@ export class HomePage {
       locationData.latitude = resp.coords.latitude;
       locationData.longitude = resp.coords.longitude;
       this.buildAndSendMessage('data:location,' + JSON.stringify(locationData));
+      this.showAdditionalIcons = false;
     }).catch((error) => {
       this.notificationService.showMessage('error getting location: ' + JSON.stringify(error));
+      this.showAdditionalIcons = false;
     });
   }
 

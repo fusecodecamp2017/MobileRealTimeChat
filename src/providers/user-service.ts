@@ -9,32 +9,24 @@ export class UserService {
   public users: FirebaseListObservable<any>;
   public currentUser: User;
 
-  // TODO: Recheck why I put this here.
-  public isInitialized: boolean;
-
   constructor(private storage: Storage, private angularFire: AngularFire) {
     this.users = angularFire.database.list('/users');
-    this.isInitialized = false;
   }
 
   public setupCurrentUser() {
     return new Promise((resolve, reject) => {
-      if (this.isInitialized) resolve();
       this.storage.get('currentUserCached').then((userStoredLocally) => {
         if (userStoredLocally) {
           this.getUserFromFireBase(userStoredLocally).then((firebaseUserInfo) => {
             this.currentUser = <User>firebaseUserInfo;
-            this.isInitialized = true;
-            resolve();
+            resolve(this.currentUser);
           });
         } else {
           this.currentUser = null;
-          this.isInitialized = true;
-          resolve();
+          resolve(null);
         }
       }, () => {
         this.currentUser = null;
-        this.isInitialized = true;
         reject(null);
       });
     });
