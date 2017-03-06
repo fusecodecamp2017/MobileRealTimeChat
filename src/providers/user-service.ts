@@ -8,6 +8,8 @@ import 'rxjs/add/operator/map';
 export class UserService {
   public users: FirebaseListObservable<any>;
   public currentUser: User;
+
+  // TODO: Recheck why I put this here.
   public isInitialized: boolean;
 
   constructor(private storage: Storage, private angularFire: AngularFire) {
@@ -38,7 +40,7 @@ export class UserService {
     });
   }
 
-  public getUserFromFireBase(user: User) {
+  private getUserFromFireBase(user: User) {
     return new Promise((resolve, reject) => {
       let userSubscription = this.angularFire.database.object('/users/' + user.$key).subscribe((userData) => {
         resolve(userData);
@@ -75,6 +77,6 @@ export class UserService {
 
   public clearCurrentUser() {
     this.currentUser = null;
-    this.storage.remove('currentUser');
+    this.storage.remove('currentUserCached');
   }
 }

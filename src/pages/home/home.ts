@@ -7,8 +7,8 @@ import { NotificationService } from '../../providers/notification-service'
 import { UserService } from '../../providers/user-service'
 import { LoginPage } from '../login/login';
 import { MapViewPage } from '../map-view/map-view'
-import * as moment from 'moment';
 import { Camera, Geolocation } from 'ionic-native';
+import * as moment from 'moment';
 
 export const cameraOptions = {
   destinationType: Camera.DestinationType.DATA_URL,
@@ -34,8 +34,6 @@ export class HomePage {
   }
 
   private setupUser() {
-    let testRon = 'Hi Ron!';
-    console.log(`HomePage constructor executing ${testRon}`);
     this.userService.setupCurrentUser().then(()=>{
       if (!this.userService.currentUser) {
         this.navCtrl.push(LoginPage);
@@ -68,14 +66,14 @@ export class HomePage {
     return message.messageContent.indexOf(imageContentPrefix) !== -1;
   }
 
+  public doesThisMessageContainLocationData(message: Message) {
+    return message.messageContent.indexOf(locationDataContentPrefix) !== -1;
+  }
+
   public getImageFromMessageContent(message: Message) {
     // Added this function so that I don't get errors in the console when the img tag
     // tries to render an image from not-image data.
     return this.doesThisMessageContainAnImage(message) ? message.messageContent : "";
-  }
-
-  public doesThisMessageContainLocationData(message: Message) {
-    return message.messageContent.indexOf(locationDataContentPrefix) !== -1;
   }
 
   public viewLocationData(message: Message) {
