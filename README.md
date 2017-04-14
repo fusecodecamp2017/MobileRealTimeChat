@@ -8,4 +8,5 @@ List of projected features for this application:
 6. Add the ability to send a photo.  
 7. Add the ability to embed links for websites and email addresses.  
 8. Add the ability to share your location.  
-9. Expand the login feature so that is stores the user information in firebase.
+9. Expand the login feature so that it stores the user information in firebase.
+ionic serve
