@@ -2,7 +2,16 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Message } from '../../models/message'
 import { MessageService } from '../../providers/message-service'
+import { Camera } from 'ionic-native';
 import * as moment from 'moment';
+
+export const cameraOptions = {
+  destinationType: Camera.DestinationType.DATA_URL,
+  targetWidth: 400,
+  targetHeight: 300
+};
+
+export const imageContentPrefix = 'data:image/jpeg;base64,';
 
 @Component({
   selector: 'page-home',
@@ -28,7 +37,16 @@ export class HomePage {
   private buildAndSendMessage(message: string) {
     var newMessage = new Message();
     newMessage.userName = this.USER_NAME_CONSTANT;
-    newMessage.messageContent = this.currentMessage;
+    newMessage.messageContent = message;
     this.messageService.addMessage(newMessage);
+  }
+
+  public sendPhoto() {
+    Camera.getPicture(cameraOptions).then((imageData) => {
+      let base64Image = imageContentPrefix + imageData.replace(/[\n\r]/g, '');
+      this.buildAndSendMessage(base64Image);
+    }, (error) => {
+      this.buildAndSendMessage('photo capture error: ' + JSON.stringify(error));
+    });
   }
 }
