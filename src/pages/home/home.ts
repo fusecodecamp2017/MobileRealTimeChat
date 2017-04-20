@@ -49,4 +49,14 @@ export class HomePage {
       this.buildAndSendMessage('photo capture error: ' + JSON.stringify(error));
     });
   }
+
+  public doesThisMessageContainAnImage(message: Message) {
+    return message.messageContent.indexOf(imageContentPrefix) !== -1;
+  }
+
+  public getImageFromMessageContent(message: Message) {
+    // Added this function so that I don't get errors in the console when the img tag
+    // tries to render an image from not-image data.
+    return this.doesThisMessageContainAnImage(message) ? message.messageContent : "";
+  }
 }
