@@ -1,0 +1,8 @@
+### 10. Facebook authentication
+
+WIP
+
+ionic plugin add cordova-plugin-facebook4 --save --variable APP_ID="681378762034604" --variable APP_NAME="Fuse code camp chat"
+
+Notes:
+- This feature is not compatible with Ionic View.  You will need to use it in the Browser or TestFlight.

@@ -8,3 +8,4 @@ List of projected features for this application:
 7. Add the ability to share your location
 8. Add the ability to view photos
 9. Add Hide/Show functionality for the photos and location buttons
+10. Facebook authentication

@@ -4,6 +4,7 @@ import { Message } from '../../models/message'
 import { MessageService } from '../../providers/message-service'
 import { Camera } from 'ionic-native';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AuthorizationService } from '../../providers/authorization-service'
 import * as moment from 'moment';
 
 export const cameraOptions = {
@@ -21,14 +22,14 @@ export const googleMapsUrlPrefix = "https://maps.google.com/maps?q=loc:";
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [MessageService, Geolocation]
+  providers: [MessageService, Geolocation, AuthorizationService]
 })
 export class HomePage {
   public USER_NAME_CONSTANT = 'John Ryan';
   public currentMessage: string;
   public showAdditionalIcons: boolean;
 
-  constructor(public navCtrl: NavController, private messageService: MessageService, private geolocation: Geolocation, public platform: Platform) {
+  constructor(public navCtrl: NavController, private messageService: MessageService, private geolocation: Geolocation, public platform: Platform, public authorizationService: AuthorizationService) {
     this.showAdditionalIcons = false;
   }
 
@@ -42,8 +43,11 @@ export class HomePage {
   }
 
   private buildAndSendMessage(message: string) {
+    var userInfo = this.authorizationService.getUserInfo();
     var newMessage = new Message();
-    newMessage.userName = this.USER_NAME_CONSTANT;
+    newMessage.uid = userInfo.uid;
+    newMessage.displayName = userInfo.displayName;
+    newMessage.photoUrl = userInfo.photoURL;
     newMessage.messageContent = message;
     this.messageService.addMessage(newMessage);
   }
@@ -93,5 +97,9 @@ export class HomePage {
 
   public doesThisMessageContainLocationData(message: Message) {
     return message.messageContent.indexOf(locationDataContentPrefix) !== -1;
+  }
+
+  public isThisMessageFromMe(message: Message) {
+    return (!this.authorizationService.authenticated() || message.uid !== this.authorizationService.currentUid());
   }
 }

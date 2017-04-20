@@ -3,14 +3,18 @@
     <ion-title>
       Fuse Code Camp
     </ion-title>
+    <ion-buttons end>
+      <button [hidden]="authorizationService.authenticated()" (click)="authorizationService.login()" ion-button outline>LOGIN</button>
+      <button [hidden]="!authorizationService.authenticated()" (click)="authorizationService.logout()" ion-button outline>LOGOUT</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list>
-    <ion-item [ngClass]="{'message-from-other-user': message.userName !== USER_NAME_CONSTANT}" *ngFor="let message of messageService.messages | async">
+    <ion-item [ngClass]="{'message-from-other-user': isThisMessageFromMe(message)}" *ngFor="let message of messageService.messages | async">
       <ion-avatar item-left>
-        <ion-icon class="anonymousUserImageIcon" name="person"></ion-icon>
+        <img src="{{message.photoUrl}}">
       </ion-avatar>
       <p>{{message.userName}}</p>
       <h2 *ngIf="isThisMessageSimpleText(message)" [innerHTML]="message.messageContent | linky:{newWindow: false}"></h2>
