@@ -3,3 +3,4 @@ List of projected features for this application:
 2. Setup home page to display and send messages.
 3. Create message style differences between yourself and everyone else.
 4. Send photos
+5. Add the ability to embed links for websites and email addresses.
