@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { Message } from '../../models/message'
 import { MessageService } from '../../providers/message-service'
 import { Camera } from 'ionic-native';
@@ -14,6 +14,9 @@ export const cameraOptions = {
 
 export const imageContentPrefix = 'data:image/jpeg;base64,';
 export const locationDataContentPrefix = 'geo:';
+export const appleMapsUrlPrefix = "https://maps.apple.com/?q=";
+export const googleMapsUrlPrefix = "https://maps.google.com/maps?q=loc:";
+
 
 @Component({
   selector: 'page-home',
@@ -24,7 +27,7 @@ export class HomePage {
   public USER_NAME_CONSTANT = 'John Ryan';
   public currentMessage: string;
 
-  constructor(public navCtrl: NavController, private messageService: MessageService, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, private messageService: MessageService, private geolocation: Geolocation, public platform: Platform) {
   }
 
   public formatDateTo_hhmm(dateProvidedAsString: string) {
@@ -66,7 +69,23 @@ export class HomePage {
     return this.doesThisMessageContainAnImage(message) ? message.messageContent : "";
   }
 
+  public getLocationUrlFromMessageContent(message: Message) {
+    let suffixToUse = message.messageContent.substr(locationDataContentPrefix.length);
+    if (this.platform.is('ios')) {
+      return appleMapsUrlPrefix + suffixToUse;
+    }
+    return googleMapsUrlPrefix + suffixToUse;
+  }
+
+  public isThisMessageSimpleText(message: Message) {
+    return !this.doesThisMessageContainAnImage(message) && !this.doesThisMessageContainLocationData(message);
+  }
+
   public doesThisMessageContainAnImage(message: Message) {
     return message.messageContent.indexOf(imageContentPrefix) !== -1;
+  }
+
+  public doesThisMessageContainLocationData(message: Message) {
+    return message.messageContent.indexOf(locationDataContentPrefix) !== -1;
   }
 }

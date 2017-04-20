@@ -13,8 +13,11 @@
         <ion-icon class="anonymousUserImageIcon" name="person"></ion-icon>
       </ion-avatar>
       <p>{{message.userName}}</p>
-      <h2 *ngIf="!doesThisMessageContainAnImage(message)" [innerHTML]="message.messageContent | linky:{newWindow: false}"></h2>
+      <h2 *ngIf="isThisMessageSimpleText(message)" [innerHTML]="message.messageContent | linky:{newWindow: false}"></h2>
       <img *ngIf="doesThisMessageContainAnImage(message)" [src]="getImageFromMessageContent(message)" />
+      <a *ngIf="doesThisMessageContainLocationData(message)" [href]="getLocationUrlFromMessageContent(message)" target="_blank">
+        <ion-icon name="locate"></ion-icon> Click here for location
+      </a>
       <ion-note item-right>{{formatDateTo_hhmm(message.messageDate)}}</ion-note>
     </ion-item>
   </ion-list>
