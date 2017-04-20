@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { Message } from '../../models/message'
 import { MessageService } from '../../providers/message-service'
 import { Camera } from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
 import * as moment from 'moment';
 
 export const cameraOptions = {
@@ -12,17 +13,18 @@ export const cameraOptions = {
 };
 
 export const imageContentPrefix = 'data:image/jpeg;base64,';
+export const locationDataContentPrefix = 'geo:';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [MessageService]
+  providers: [MessageService, Geolocation]
 })
 export class HomePage {
   public USER_NAME_CONSTANT = 'John Ryan';
   public currentMessage: string;
 
-  constructor(public navCtrl: NavController, private messageService: MessageService) {
+  constructor(public navCtrl: NavController, private messageService: MessageService, private geolocation: Geolocation) {
   }
 
   public formatDateTo_hhmm(dateProvidedAsString: string) {
@@ -50,13 +52,21 @@ export class HomePage {
     });
   }
 
-  public doesThisMessageContainAnImage(message: Message) {
-    return message.messageContent.indexOf(imageContentPrefix) !== -1;
+  public sendLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.buildAndSendMessage(locationDataContentPrefix + resp.coords.latitude + ',' + resp.coords.longitude);
+    }).catch((error) => {
+      this.buildAndSendMessage('error getting location: ' + JSON.stringify(error));
+    });
   }
 
   public getImageFromMessageContent(message: Message) {
     // Added this function so that I don't get errors in the console when the img tag
     // tries to render an image from not-image data.
     return this.doesThisMessageContainAnImage(message) ? message.messageContent : "";
+  }
+
+  public doesThisMessageContainAnImage(message: Message) {
+    return message.messageContent.indexOf(imageContentPrefix) !== -1;
   }
 }
