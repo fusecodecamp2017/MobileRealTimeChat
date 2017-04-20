@@ -13,7 +13,7 @@
         <ion-icon class="anonymousUserImageIcon" name="person"></ion-icon>
       </ion-avatar>
       <p>{{message.userName}}</p>
-      <h2>{{message.messageContent}}</h2>
+      <h2 [innerHTML]="message.messageContent | linky:{newWindow: false}"></h2>
       <ion-note item-right>{{formatDateTo_hhmm(message.messageDate)}}</ion-note>
     </ion-item>
   </ion-list>
