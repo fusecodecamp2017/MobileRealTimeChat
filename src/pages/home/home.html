@@ -4,8 +4,8 @@
       Fuse Code Camp
     </ion-title>
     <ion-buttons end>
-      <button [hidden]="authorizationService.authenticated()" (click)="authorizationService.login()" ion-button outline>LOGIN</button>
-      <button [hidden]="!authorizationService.authenticated()" (click)="authorizationService.logout()" ion-button outline>LOGOUT</button>
+      <button *ngIf="!authorizationService.authenticated()" (click)="authorizationService.login()" ion-button outline>LOGIN</button>
+      <button *ngIf="authorizationService.authenticated()" (click)="authorizationService.logout()" ion-button outline>LOGOUT</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
