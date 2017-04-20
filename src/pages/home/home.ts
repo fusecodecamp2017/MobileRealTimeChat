@@ -25,7 +25,6 @@ export const googleMapsUrlPrefix = "https://maps.google.com/maps?q=loc:";
   providers: [MessageService, Geolocation, AuthorizationService]
 })
 export class HomePage {
-  public USER_NAME_CONSTANT = 'John Ryan';
   public currentMessage: string;
   public showAdditionalIcons: boolean;
 
