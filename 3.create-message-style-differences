@@ -1,0 +1,10 @@
+### 3. Create message style differences between yourself and everyone else.
+
+Objectives:
+- use the NgClass angular directive in src/pages/home/home.html to set a class named "message-from-other-user" for 
+  messages that have a userName which does not match USER_NAME_CONSTANT which you setup in the last feature you implemented.
+  
+  For reference on the use of ngClass look at the example here: http://codepen.io/cah-johnryan/pen/zwrMvZ
+
+- In your IDE update styling in src/pages/home/home.scss so that the class you added called "message-from-other-user" 
+  has at least a different color than your own messages.  Add any other styling you like.

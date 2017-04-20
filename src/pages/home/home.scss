@@ -2,6 +2,23 @@ page-home {
   .anonymousUserImageIcon {
     font-size: 3.5rem;
   }
+  ion-item {
+    div.item-inner {
+      border-bottom: 0px solid #dedede !important;
+    }
+  }
+  .message-from-other-user {
+    background-color: #86b0f9;
+    ion-avatar>ion-icon {
+      color: white;
+    }
+    h2 {
+      color: white;
+    }
+    ion-note {
+      color: white;
+    }
+  }
   ion-footer {
     position: fixed;
     #current-message-input {
