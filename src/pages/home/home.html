@@ -17,11 +17,16 @@
       <ion-note item-right>{{formatDateTo_hhmm(message.messageDate)}}</ion-note>
     </ion-item>
   </ion-list>
-  <ion-footer>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
     <ion-item>
+      <button (click)="sendPhoto()" item-left ion-button>
+          <ion-icon name="camera"></ion-icon>
+        </button>
       <!-- Not using ion-input due to undesirable keyboard behavior -->
       <input id="current-message-input" [(ngModel)]="currentMessage" type="text" placeholder="Message" />
       <button (click)="send()" item-right ion-button>SEND</button>
     </ion-item>
-  </ion-footer>
-</ion-content>
+  </ion-toolbar>
+</ion-footer>

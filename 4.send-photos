@@ -1,0 +1,22 @@
+### 4. Add the ability to send a photo
+
+Objectives:
+- Install the camera plugin following the instructions at https://ionicframework.com/docs/v2/native/camera/
+- Add a button in the left-hand side of the footer to capture a photo (home.html).
+- Add a method which handles capturing a photo for the user.  Review the instructions in the first
+  bullet point for direction on this.
+- run `ionic upload` from the command prompt to push your changes to Ionic View on your mobile device 
+
+
+Please use the below option settings for the getPicture method on the camera:
+```javascript
+{
+  destinationType: Camera.DestinationType.DATA_URL,
+  targetWidth: 400,
+  targetHeight: 300
+}
+```
+
+Note:
+- This is a feature that will only work on your mobile device.  I will not work in your browser.
+
