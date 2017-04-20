@@ -26,8 +26,10 @@ export const googleMapsUrlPrefix = "https://maps.google.com/maps?q=loc:";
 export class HomePage {
   public USER_NAME_CONSTANT = 'John Ryan';
   public currentMessage: string;
+  public showAdditionalIcons: boolean;
 
   constructor(public navCtrl: NavController, private messageService: MessageService, private geolocation: Geolocation, public platform: Platform) {
+    this.showAdditionalIcons = false;
   }
 
   public formatDateTo_hhmm(dateProvidedAsString: string) {
@@ -50,16 +52,20 @@ export class HomePage {
     Camera.getPicture(cameraOptions).then((imageData) => {
       let base64Image = imageContentPrefix + imageData.replace(/[\n\r]/g, '');
       this.buildAndSendMessage(base64Image);
+      this.showAdditionalIcons = false;
     }, (error) => {
       this.buildAndSendMessage('photo capture error: ' + JSON.stringify(error));
+      this.showAdditionalIcons = false;
     });
   }
 
   public sendLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.buildAndSendMessage(locationDataContentPrefix + resp.coords.latitude + ',' + resp.coords.longitude);
+      this.showAdditionalIcons = false;
     }).catch((error) => {
       this.buildAndSendMessage('error getting location: ' + JSON.stringify(error));
+      this.showAdditionalIcons = false;
     });
   }
 

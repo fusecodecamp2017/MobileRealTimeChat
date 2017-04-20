@@ -25,10 +25,14 @@
 <ion-footer>
   <ion-toolbar>
     <ion-item>
-      <button (click)="sendPhoto()" item-left ion-button>
+      <button (click)="showAdditionalIcons = !showAdditionalIcons" item-left ion-button>
+        <ion-icon *ngIf="!showAdditionalIcons" name="arrow-forward"></ion-icon>
+        <ion-icon *ngIf="showAdditionalIcons" name="arrow-back"></ion-icon>
+      </button>
+      <button *ngIf="showAdditionalIcons" (click)="sendPhoto()" item-left ion-button>
           <ion-icon name="camera"></ion-icon>
       </button>
-      <button (click)="sendLocation()" item-left ion-button>
+      <button *ngIf="showAdditionalIcons" (click)="sendLocation()" item-left ion-button>
         <ion-icon name="locate"></ion-icon>
       </button>
       <!-- Not using ion-input due to undesirable keyboard behavior -->
