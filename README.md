@@ -18,10 +18,10 @@ Note: For guidance, there are tags already available which you can use to review
 
 ### Technologies to be learned:
 
-Ionic 2
-Angular 2
-Firebase
-Git
+- Ionic 2
+- Angular 2
+- Firebase
+- Git
 
 ### Pre-requisites:
 
@@ -32,19 +32,19 @@ To reduce the time needed for setup, please try to install the below software pr
 
 Laptop setup:
 
-One of these IDE’s:
-Atom: https://atom.io/
-Visual Studio Code: https://code.visualstudio.com/download
-IntelliJ: https://www.jetbrains.com/idea/download/
-WebStorm: https://www.jetbrains.com/webstorm/download/
-Git: https://git-scm.com/
-Node.js: https://nodejs.org/en/
-Ionic 2: http://ionicframework.com/docs/v2/intro/installation/
+- One of these IDE’s:
+  * Atom: https://atom.io/
+  * Visual Studio Code: https://code.visualstudio.com/download
+  * IntelliJ: https://www.jetbrains.com/idea/download/
+  * WebStorm: https://www.jetbrains.com/webstorm/download/
+- Git: https://git-scm.com/
+- Node.js: https://nodejs.org/en/
+- Ionic 2: http://ionicframework.com/docs/v2/intro/installation/
+
+Mobile device setup (app install):
+- iOS: https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8
+- Android: https://play.google.com/store/apps/details?id=com.ionic.viewapp&hl=en
 
 Account setup:
-GitHub: https://github.com/
-Ionic: http://ionicframework.com/
-Mobile device setup (app install):
-
-iOS: https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8
-Android: https://play.google.com/store/apps/details?id=com.ionic.viewapp&hl=en
+- GitHub: https://github.com/
+- Ionic: http://ionicframework.com/
