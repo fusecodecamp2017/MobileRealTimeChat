@@ -20,7 +20,7 @@ Note: For guidance, there are tags already available which you can use to review
 - Ionic 2
 - Angular 2
 - Firebase
-Git
+- Git
 
 ### Pre-requisites:
 
