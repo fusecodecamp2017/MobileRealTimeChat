@@ -41,7 +41,7 @@
       </button>
       <!-- Not using ion-input due to undesirable keyboard behavior -->
       <input id="current-message-input" [(ngModel)]="currentMessage" type="text" placeholder="Message" />
-      <button (click)="send()" item-right ion-button>SEND</button>
+      <button [disabled]="!authorizationService.authenticated()" (click)="send()" item-right ion-button>SEND</button>
     </ion-item>
   </ion-toolbar>
 </ion-footer>
