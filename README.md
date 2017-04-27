@@ -30,19 +30,20 @@ Git
 To reduce the time needed for setup, please try to install the below software prior to attending this workshop.  Don’t worry if you run into any challenges with this effort, we will help with completing this setup once the workshop has started.
 
 Laptop setup:
-1. One of these IDE’s:
-..* Atom: https://atom.io/
-..* Visual Studio Code: https://code.visualstudio.com/download
-..* IntelliJ: https://www.jetbrains.com/idea/download/
-..* WebStorm: https://www.jetbrains.com/webstorm/download/
-2. Git: https://git-scm.com/
-3. Node.js: https://nodejs.org/en/
-4. Ionic 2: http://ionicframework.com/docs/v2/intro/installation/
+
+- One of these IDE’s:
+  * Atom: https://atom.io/
+  * Visual Studio Code: https://code.visualstudio.com/download
+  * IntelliJ: https://www.jetbrains.com/idea/download/
+  * WebStorm: https://www.jetbrains.com/webstorm/download/
+- Git: https://git-scm.com/
+- Node.js: https://nodejs.org/en/
+- Ionic 2: http://ionicframework.com/docs/v2/intro/installation/
 
 Mobile device setup (app install):
-1. iOS: https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8
-2. Android: https://play.google.com/store/apps/details?id=com.ionic.viewapp&hl=en
+- iOS: https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8
+- Android: https://play.google.com/store/apps/details?id=com.ionic.viewapp&hl=en
 
 Account setup:
-1. GitHub: https://github.com/
-2. Ionic: http://ionicframework.com/
+- GitHub: https://github.com/
+- Ionic: http://ionicframework.com/
