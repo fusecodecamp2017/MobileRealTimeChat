@@ -5,3 +5,4 @@ List of projected features for this application:
 4. Send photos.
 5. Add the ability to embed links for websites and email addresses.
 6. Add the ability to view photos.
+7. Add the ability to share your location.
