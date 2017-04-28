@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
   "name": "FuseCodeCampChat",
   "app_id": "",
-=======
-  "name": "IonicMessaging",
-  "app_id": "8371da89",
->>>>>>> master
   "v2": true,
   "typescript": true
 }
