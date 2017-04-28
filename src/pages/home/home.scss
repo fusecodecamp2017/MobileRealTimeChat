@@ -2,26 +2,28 @@ page-home {
   .anonymousUserImageIcon {
     font-size: 3.5rem;
   }
-
-  .current-user-message {
+  ion-item {
     div.item-inner {
-      padding-left: 1rem;
-      border-radius: 1rem;
-      background-color: #86b0f9;
+      border-bottom: 0px solid #dedede !important;
     }
-
+  }
+  .message-from-other-user {
+    background-color: #86b0f9;
+    ion-avatar>ion-icon {
+      color: white;
+    }
     h2 {
       color: white;
-      white-space: normal;
     }
-
     ion-note {
       color: white;
     }
   }
-  #current-message-input {
-    width: 100%;
-    background-color: transparent;
-    border: none;
+  ion-footer {
+    #current-message-input {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+    }
   }
 }

@@ -2,12 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
-import { MapViewPage } from '../pages/map-view/map-view'
-import { CreateNewAccountPage } from '../pages/create-new-account/create-new-account'
 import { AngularFireModule } from 'angularfire2';
-import { Storage } from '@ionic/storage';
-import { UserService } from '../providers/user-service'
 import { LinkyModule } from 'angular-linky';
 
 export const firebaseConfig = {
@@ -21,10 +16,7 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    LoginPage,
-    MapViewPage,
-    CreateNewAccountPage
+    HomePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -34,11 +26,8 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    LoginPage,
-    MapViewPage,
-    CreateNewAccountPage
+    HomePage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage, UserService]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
-export class AppModule {}
+export class AppModule { }
