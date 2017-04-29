@@ -2,15 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { Message } from '../../models/message'
 import { MessageService } from '../../providers/message-service'
-import { Camera } from 'ionic-native';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import * as moment from 'moment';
-
-export const cameraOptions = {
-  destinationType: Camera.DestinationType.DATA_URL,
-  targetWidth: 400,
-  targetHeight: 300
-};
 
 export const imageContentPrefix = 'data:image/jpeg;base64,';
 export const locationDataContentPrefix = 'geo:';
@@ -21,14 +15,14 @@ export const googleMapsUrlPrefix = "https://maps.google.com/maps?q=loc:";
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [MessageService, Geolocation]
+  providers: [MessageService, Camera, Geolocation]
 })
 export class HomePage {
   public USER_NAME_CONSTANT = 'John Ryan';
   public currentMessage: string;
   public showAdditionalIcons: boolean;
 
-  constructor(public navCtrl: NavController, private messageService: MessageService, private geolocation: Geolocation, public platform: Platform) {
+  constructor(public navCtrl: NavController, private messageService: MessageService, private camera: Camera, private geolocation: Geolocation, public platform: Platform) {
     this.showAdditionalIcons = false;
   }
 
@@ -49,7 +43,15 @@ export class HomePage {
   }
 
   public sendPhoto() {
-    Camera.getPicture(cameraOptions).then((imageData) => {
+    let options: CameraOptions = {
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 600,
+      targetHeight: 400
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
       let base64Image = imageContentPrefix + imageData.replace(/[\n\r]/g, '');
       this.buildAndSendMessage(base64Image);
       this.showAdditionalIcons = false;
