@@ -5,12 +5,6 @@ import { MessageService } from '../../providers/message-service'
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import * as moment from 'moment';
 
-// export const cameraOptions = {
-//   destinationType: Camera.DestinationType.DATA_URL,
-//   targetWidth: 400,
-//   targetHeight: 300
-// };
-
 export const imageContentPrefix = 'data:image/jpeg;base64,';
 
 @Component({
@@ -42,11 +36,13 @@ export class HomePage {
   }
 
   public sendPhoto() {
-    const options: CameraOptions = {
+    let options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 400,
+      targetHeight: 300
     }
 
     this.camera.getPicture(options).then((imageData) => {
