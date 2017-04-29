@@ -37,19 +37,26 @@ export class HomePage {
 
   public sendPhoto() {
     let options: CameraOptions = {
-      quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      targetWidth: 400,
-      targetHeight: 300
+      mediaType: this.camera.MediaType.PICTURE
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      let base64Image = imageContentPrefix + imageData;
+      let base64Image = imageContentPrefix + imageData.replace(/[\n\r]/g, '');
       this.buildAndSendMessage(base64Image);
     }, (error) => {
       this.buildAndSendMessage('photo capture error: ' + JSON.stringify(error));
     });
+  }
+
+  public doesThisMessageContainAnImage(message: Message) {
+    return message.messageContent.indexOf(imageContentPrefix) !== -1;
+  }
+
+  public getImageFromMessageContent(message: Message) {
+    // Added this function so that I don't get errors in the console when the img tag
+    // tries to render an image from not-image data.
+    return this.doesThisMessageContainAnImage(message) ? message.messageContent : "";
   }
 }
