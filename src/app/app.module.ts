@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 
 import { AngularFireModule } from 'angularfire2';
 import { LinkyModule } from 'angular-linky';
+import { Facebook } from '@ionic-native/facebook';
 
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyCxf5Zqvf_19Hg2d8h9Fp8HM7qiTBrVpIM",
@@ -42,6 +43,7 @@ export const firebaseConfig = {
     HomePage
   ],
   providers: [
+    Facebook,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler }

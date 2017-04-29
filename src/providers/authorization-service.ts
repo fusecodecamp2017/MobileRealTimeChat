@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthProviders, AngularFireAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
 import { User } from "../models/user"
 import { Platform } from 'ionic-angular';
-import { Facebook } from 'ionic-native';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import 'rxjs/add/operator/map';
 
 
@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 export class AuthorizationService {
   private authState: FirebaseAuthState;
 
-  constructor(public auth$: AngularFireAuth, private platform: Platform) {
+  constructor(public auth$: AngularFireAuth, private platform: Platform, private facebook: Facebook) {
     this.authState = auth$.getAuth();
     auth$.subscribe((state: FirebaseAuthState) => {
       this.authState = state;
@@ -23,7 +23,7 @@ export class AuthorizationService {
 
   public login(): void {
     if (this.platform.is('cordova')) {
-      Facebook.login(['email', 'public_profile']).then(res => {
+      this.facebook.login(['email', 'public_profile']).then((res: FacebookLoginResponse) => {
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
         return firebase.auth().signInWithCredential(facebookCredential);
       });
