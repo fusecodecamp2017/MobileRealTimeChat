@@ -2,27 +2,27 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Message } from '../../models/message'
 import { MessageService } from '../../providers/message-service'
-import { Camera } from 'ionic-native';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import * as moment from 'moment';
 
-export const cameraOptions = {
-  destinationType: Camera.DestinationType.DATA_URL,
-  targetWidth: 400,
-  targetHeight: 300
-};
+// export const cameraOptions = {
+//   destinationType: Camera.DestinationType.DATA_URL,
+//   targetWidth: 400,
+//   targetHeight: 300
+// };
 
 export const imageContentPrefix = 'data:image/jpeg;base64,';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [MessageService]
+  providers: [MessageService, Camera]
 })
 export class HomePage {
   public USER_NAME_CONSTANT = 'John Ryan';
   public currentMessage: string;
 
-  constructor(public navCtrl: NavController, private messageService: MessageService) {
+  constructor(public navCtrl: NavController, private messageService: MessageService, private camera: Camera) {
   }
 
   public formatDateTo_hhmm(dateProvidedAsString: string) {
@@ -42,8 +42,15 @@ export class HomePage {
   }
 
   public sendPhoto() {
-    Camera.getPicture(cameraOptions).then((imageData) => {
-      let base64Image = imageContentPrefix + imageData.replace(/[\n\r]/g, '');
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      let base64Image = imageContentPrefix + imageData;
       this.buildAndSendMessage(base64Image);
     }, (error) => {
       this.buildAndSendMessage('photo capture error: ' + JSON.stringify(error));
