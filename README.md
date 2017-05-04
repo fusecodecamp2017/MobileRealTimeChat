@@ -1,7 +1,7 @@
 # Overview
 Through the course of this workshop you will be familiarized with how to build a mobile chat application in Ionic 2.
 
-## Notice: I am re-hashing this workshop in the new repo, https://github.com/cah-johnryan/MobileRealTimeChat
+#### Notice: I am re-hashing this workshop in the new repo, https://github.com/cah-johnryan/MobileRealTimeChat
 
 ## The features to be implemented
 Below are the features we will be implementing in this workshop.
